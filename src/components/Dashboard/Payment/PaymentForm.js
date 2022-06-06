@@ -24,7 +24,6 @@ export default function PaymentForm() {
   }
   return (
     <Box>
-      <StyledTypography variant="h4">Ingresso e pagamento</StyledTypography>
       <Box sx={{ margin: '0 0 25px 0' }}>
         <StyledTypography variant="h6" color="textSecondary">
           Ingresso escolhido
@@ -39,20 +38,17 @@ export default function PaymentForm() {
           Pagamento
         </StyledTypography>
         {success ? (
-          <Box style={{display: 'flex', alignItems: 'center', gap: '14px'}}>
-            <CheckCircleIcon style={{fill: '#36B853', fontSize: '40.33px'}}/>
+          <Box sx={{ display: 'flex', flexDirection: 'row', gap: 15 }}>
+            <CheckCircleIcon style={{ fill: '#36B853', fontSize: '40.33px' }} />
             <div>
-            <StyledTypography variant="p" style={{ fontWeight: '700', color: '#454545' }} color="#454545">
-              Pagamento confirmado!
-            </StyledTypography>
-            <br />
-            <StyledTypography variant="p" style={{ color: '#454545' }}>
-              Prossiga para escolha de hospedagem e atividades
-            </StyledTypography>
+              <Typography>
+                <strong>Pagamento confirmado!</strong>
+              </Typography>
+              <StyledTypography>Prossiga para escolha de hospedagem e atividades</StyledTypography>
             </div>
           </Box>
         ) : (
-          <CardForm setSuccess={setSuccess}/>
+          <CardForm setSuccess={setSuccess} />
         )}
       </Box>
     </Box>

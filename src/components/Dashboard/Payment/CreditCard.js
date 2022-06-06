@@ -23,7 +23,7 @@ const style = {
 };
 
 export default function CardForm({ setSuccess }) {
-  const { token } = useToken();
+  const token = useToken();
   const { paymentInfo } = usePayment();
   const { handleChange, handleFocus, handleSubmit, values, errors } = useCardForm();
   const { reserveTicket } = useTicket();
@@ -32,7 +32,12 @@ export default function CardForm({ setSuccess }) {
     e.preventDefault();
     console.log(values);
     try {
-      await reserveTicket(paymentInfo, token);
+      if(paymentInfo.hotel) {
+        await reserveTicket({type: paymentInfo.type, accommodation: paymentInfo.hotel}, token)
+      } else {
+        await reserveTicket({type: paymentInfo.type}, token);
+      }
+
       setSuccess(true);
     } catch (error) {
       console.log(error)
@@ -70,7 +75,6 @@ export default function CardForm({ setSuccess }) {
                 onChange={handleChange}
                 onFocus={handleFocus}
                 inputComponent={CardNumberMask}
-                isValid={errors.cnumber}
               ></Input>
             </Box>
             <InputLabel>E.g.: 49..., 51..., 36..., 37...</InputLabel>
@@ -90,7 +94,6 @@ export default function CardForm({ setSuccess }) {
                 value={values.cardName}
                 onChange={handleChange}
                 onFocus={handleFocus}
-                isValid={errors.cname}
               ></Input>
             </Box>
 
@@ -110,7 +113,6 @@ export default function CardForm({ setSuccess }) {
                   value={values.cardExpiration}
                   onChange={handleChange}
                   onFocus={handleFocus}
-                  isValid={errors.cexp}
                   inputComponent={ValidThruMask}
                 ></Input>
               </Box>
@@ -129,7 +131,6 @@ export default function CardForm({ setSuccess }) {
                   value={values.cardSecurityCode}
                   onChange={handleChange}
                   onFocus={handleFocus}
-                  isValid={errors.ccvv}
                   inputComponent={CvcMask}
                 ></Input>
               </Box>
