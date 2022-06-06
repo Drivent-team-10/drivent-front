@@ -11,12 +11,17 @@ export async function save(body, token) {
 }
 
 export async function getPersonalInformations(token) {
-  const response = await api.get('/enrollments', {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  try {
+    const response = await api.get('/enrollments', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  
+    return response.data;
 
-  return response.data;
+  } catch (error) {
+    console.log(error)
+  }
 }
 //

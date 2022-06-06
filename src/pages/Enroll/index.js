@@ -39,7 +39,6 @@ export default function Enroll() {
       }
     }
   }
-
   return (
     <AuthLayout background={eventInfo.backgroundImageUrl}>
       <Row>

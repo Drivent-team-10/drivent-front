@@ -10,6 +10,8 @@ import CvcMask from './CardInputMasks/CvcMask';
 import CardNumberMask from './CardInputMasks/CardNumberMask copy';
 import usePayment from '../../../hooks/usePayment';
 import useToken from '../../../hooks/useToken';
+import { toast } from 'react-toastify';
+import useTicket from '../../../hooks/api/useTicket';
 
 const style = {
   inputContainer: {
@@ -24,16 +26,17 @@ export default function CardForm() {
   const { token } = useToken();
   const { paymentInfo } = usePayment();
   const { handleChange, handleFocus, handleSubmit, values, errors } = useCardForm();
+  const { reserveTicket } = useTicket();
 
   async function handleSubmitPayment(e) {
     e.preventDefault();
     console.log(values);
-    return;
-    // try {
-    //   await reserveTicket(paymentInfo, token);
-    // } catch (error) {
-    //   toast('Não foi possível reservar o ingresso!');
-    // }
+    try {
+      await reserveTicket(paymentInfo, token);
+    } catch (error) {
+      console.log(error)
+      toast('Não foi possível reservar o ingresso!');
+    }
   }
 
   return (
