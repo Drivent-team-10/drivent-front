@@ -22,7 +22,7 @@ const style = {
   },
 };
 
-export default function CardForm() {
+export default function CardForm({ setSuccess }) {
   const { token } = useToken();
   const { paymentInfo } = usePayment();
   const { handleChange, handleFocus, handleSubmit, values, errors } = useCardForm();
@@ -33,6 +33,7 @@ export default function CardForm() {
     console.log(values);
     try {
       await reserveTicket(paymentInfo, token);
+      setSuccess(true);
     } catch (error) {
       console.log(error)
       toast('Não foi possível reservar o ingresso!');

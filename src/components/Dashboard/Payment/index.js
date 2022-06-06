@@ -6,13 +6,12 @@ import useToken from '../../../hooks/useToken';
 import useEnrollment from '../../../hooks/api/useEnrollment';
 
 import Selection from './Selection';
-import CardForm from './CreditCard';
+import PaymentForm from './PaymentForm';
 
 import { StyledTypography, ButtonContainer } from './style';
 
 export default function PaymentPage() {
   const { token } = useToken();
-
   const { enrollment } = useEnrollment();
 
   const [isReservationReady, setIsReservationReady] = useState(false);
@@ -27,7 +26,7 @@ export default function PaymentPage() {
           </StyledTypography>
         </Box>
       ) : isReservationReady ? (
-        <CardForm />
+        <PaymentForm />
       ) : (
         <Selection setIsReservationReady={setIsReservationReady} />
       )}
